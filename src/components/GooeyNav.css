@@ -1,0 +1,113 @@
+/* GooeyNav styles */
+
+:root {
+  --color-1: #6366f1; /* indigo-500 */
+  --color-2: #22c55e; /* green-500 */
+  --color-3: #f59e0b; /* amber-500 */
+  --color-4: #ef4444; /* red-500 */
+}
+
+.gooey-nav-container {
+  position: relative;
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.gooey-nav-container nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  backdrop-filter: blur(10px);
+  background: rgba(17, 24, 39, 0.55); /* dark translucent */
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.gooey-nav-container nav li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  font-weight: 600;
+  color: #ffffff; /* visible on dark */
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+.gooey-nav-container nav li a:hover { color: #e5e7eb; }
+.gooey-nav-container nav li.active a { color: #ffffff; }
+
+/* Effect layers */
+.effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.effect.filter {
+  border-radius: 12px;
+  overflow: visible;
+}
+
+.effect.text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.effect.text.active {
+  opacity: 1;
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  transform: translate(var(--start-x), var(--start-y)) scale(var(--scale));
+  transition: transform var(--time) ease-out;
+  animation: bubble var(--time) ease-out forwards;
+}
+
+.particle .point {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color, var(--color-1));
+  filter: blur(0.3px);
+}
+
+/* When container becomes active, trigger particles */
+.effect.filter.active .particle {
+  transform: translate(var(--end-x), var(--end-y)) rotate(var(--rotate)) scale(var(--scale));
+}
+
+@keyframes bubble {
+  0% {
+    transform: translate(var(--start-x), var(--start-y)) rotate(0deg) scale(var(--scale));
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--end-x), var(--end-y)) rotate(var(--rotate)) scale(calc(var(--scale) * 0.6));
+    opacity: 0;
+  }
+}
